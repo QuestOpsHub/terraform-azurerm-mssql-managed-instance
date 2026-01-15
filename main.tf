@@ -2,21 +2,21 @@
 # MSSQL Managed Instance
 #------------------------
 resource "azurerm_mssql_managed_instance" "mssql_managed_instance" {
-  name                         = var.mssql_managed_instance_name
+  name                         = var.name
   resource_group_name          = var.resource_group_name
   location                     = var.location
-  administrator_login          = var.administrator_login
-  administrator_login_password = var.administrator_login_password
   license_type                 = var.license_type
   sku_name                     = var.sku_name
   storage_size_in_gb           = var.storage_size_in_gb
   subnet_id                    = var.subnet_id
   vcores                       = var.vcores
+  administrator_login          = try(var.administrator_login, null)
+  administrator_login_password = try(var.administrator_login_password, null)
   collation                    = try(var.collation, "SQL_Latin1_General_CP1_CI_AS")
   dns_zone_partner_id          = try(var.dns_zone_partner_id, null)
 
   dynamic "identity" {
-    for_each = var.identity.type != null ? [1] : []
+    for_each = try(var.identity.type, null) != null ? [var.identity.type] : []
     content {
       type         = var.identity.type
       identity_ids = var.identity.type == "UserAssigned" || var.identity.type == "SystemAssigned, UserAssigned" ? var.identity.identity_ids : null

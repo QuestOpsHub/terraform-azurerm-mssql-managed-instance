@@ -1,22 +1,22 @@
 #------------------------
 # MSSQL Managed Instance
 #------------------------
+output "name" {
+  description = "The SQL Managed Instance Name."
+  value       = azurerm_mssql_managed_instance.mssql_managed_instance.name
+}
+
 output "id" {
-  value = azurerm_mssql_managed_instance.mssql_managed_instance.id
+  description = "The SQL Managed Instance ID."
+  value       = azurerm_mssql_managed_instance.mssql_managed_instance.id
+}
+
+output "dns_zone" {
+  description = "The Dns Zone where the SQL Managed Instance is located."
+  value       = azurerm_mssql_managed_instance.mssql_managed_instance.dns_zone
 }
 
 output "fqdn" {
-  value = azurerm_mssql_managed_instance.mssql_managed_instance.fqdn
-}
-
-output "identity" {
-  description = "An identity block"
-  value       = azurerm_mssql_managed_instance.mssql_managed_instance.identity
-}
-
-#-----------------------
-# Security Alert Policy
-#-----------------------
-output "security_alert_policy" {
-  value = azurerm_mssql_managed_instance_security_alert_policy.security_alert_policy
+  description = "The fully qualified domain name of the Azure Managed SQL Instance"
+  value       = azurerm_mssql_managed_instance.mssql_managed_instance.fqdn
 }
